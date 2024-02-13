@@ -1,5 +1,7 @@
+import { PageLayout } from "./components/PageLayout";
+
 function App() {
-  return <div>Hello Budgety</div>;
+  return <PageLayout>Hello Budgety</PageLayout>;
 }
 
 export default App;
