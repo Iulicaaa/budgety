@@ -2,6 +2,10 @@ import React from "react";
 import { PageLayout } from "@/components/PageLayout";
 import styled from "styled-components";
 
+//to do
+//folosim props cu titlu in fiecare pagina(pages) pentru a schimba titlul paginii
+//punem props in loc de {selectedMenu}
+
 const Dashboard = () => {
   return (
     <PageLayout>
