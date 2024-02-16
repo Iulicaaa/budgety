@@ -13,6 +13,7 @@ import logo_small from "@/assets/logo_small.svg";
 import { Link } from "react-router-dom";
 import { Outlet } from "react-router-dom";
 import { Divider } from "antd";
+import { createGlobalStyle } from "styled-components";
 
 const { Header, Sider, Footer, Content } = Layout;
 
@@ -24,7 +25,7 @@ type PageLayoutProps = {
 export const PageLayout = ({ children, title }: PageLayoutProps) => {
   const [collapsed, setCollapsed] = useState(false);
   const {
-    token: { colorBgContainer, borderRadiusLG },
+    token: { colorBgContainer },
   } = theme.useToken();
   const [selectedMenu, setSelectedMenu] = useState("Dashboard"); // Add this line
 
@@ -48,77 +49,80 @@ export const PageLayout = ({ children, title }: PageLayoutProps) => {
   ];
 
   return (
-    <Layout style={{ height: "100vh" }}>
-      <Sider
-        trigger={null}
-        collapsible
-        collapsed={collapsed}
-        style={{ background: colorBgContainer }}
-      >
-        <LogoWrapper>
-          <img src={collapsed ? logo_small : logo_large} />
-        </LogoWrapper>
-        <Menu
-          mode="inline"
-          selectedKeys={[selectedMenu]}
-          onSelect={({ key }) => setSelectedMenu(key)} // Update selectedMenu when a menu item is selected
+    <>
+      <GlobalStyle />
+      <Layout style={{ height: "100vh" }}>
+        <Sider
+          trigger={null}
+          collapsible
+          collapsed={collapsed}
+          style={{ background: colorBgContainer }}
         >
-          {/* {menuItems.map((item) => (
+          <LogoWrapper>
+            <img src={collapsed ? logo_small : logo_large} />
+          </LogoWrapper>
+          <Menu
+            mode="inline"
+            selectedKeys={[selectedMenu]}
+            onSelect={({ key }) => setSelectedMenu(key)} // Update selectedMenu when a menu item is selected
+          >
+            {/* {menuItems.map((item) => (
             <Menu.Item key={item.key} icon={item.icon}>
               {/* <Link to={{ pathname: `/${item.label.toLowerCase()}` }}> */}
-          {/* {item.label} */}
-          {/* </Link> */}
-          {/* </Menu.Item> */}
+            {/* {item.label} */}
+            {/* </Link> */}
+            {/* </Menu.Item> */}
 
-          <Menu.Item key="1" icon={<ClockCircleOutlined />}>
-            <Link to="/dashboard">Dashboard</Link>
-          </Menu.Item>
-          <Menu.Item key="2" icon={<VerticalAlignMiddleOutlined />}>
-            <Link to="/transactions">Transactions</Link>
-          </Menu.Item>
-          <Menu.Item key="3" icon={<WalletOutlined />}>
-            <Link to="/budget">Budget</Link>
-          </Menu.Item>
-        </Menu>
-      </Sider>
-      <Layout>
-        <Header style={{ padding: 0, background: colorBgContainer }}>
-          <Button
-            type="text"
-            icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
-            onClick={() => setCollapsed(!collapsed)}
+            <Menu.Item key="1" icon={<ClockCircleOutlined />}>
+              <Link to="/dashboard">Dashboard</Link>
+            </Menu.Item>
+            <Menu.Item key="2" icon={<VerticalAlignMiddleOutlined />}>
+              <Link to="/transactions">Transactions</Link>
+            </Menu.Item>
+            <Menu.Item key="3" icon={<WalletOutlined />}>
+              <Link to="/budget">Budget</Link>
+            </Menu.Item>
+          </Menu>
+        </Sider>
+        <Layout>
+          <Header style={{ padding: 0, background: colorBgContainer }}>
+            <Button
+              type="text"
+              icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
+              onClick={() => setCollapsed(!collapsed)}
+              style={{
+                fontSize: "16px",
+                width: 64,
+                height: 64,
+              }}
+            />
+            {title}
+          </Header>
+          <Content
             style={{
-              fontSize: "16px",
-              width: 64,
-              height: 64,
+              padding: 28,
+              color: "magenta",
+            }}
+          >
+            {children}
+          </Content>
+          <Divider
+            style={{
+              padding: 0,
+              margin: 0,
             }}
           />
-          {title}
-        </Header>
-        <Content
-          style={{
-            padding: 28,
-            color: "magenta",
-          }}
-        >
-          {children}
-        </Content>
-        <Divider
-          style={{
-            padding: 0,
-            margin: 0,
-          }}
-        />
 
-        <Footer
-          style={{
-            textAlign: "left",
-          }}
-        >
-          ©{new Date().getFullYear()} All Rights Reserved.
-        </Footer>
+          <Footer
+            style={{
+              textAlign: "left",
+            }}
+          >
+            ©{new Date().getFullYear()} All Rights Reserved.
+          </Footer>
+        </Layout>
       </Layout>
-    </Layout>
+    </>
   );
 };
 
@@ -127,4 +131,17 @@ const LogoWrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+`;
+
+const GlobalStyle = createGlobalStyle`
+  .ant-menu-item-selected {
+    
+    border-right: 3px solid orange !important;
+    border-radius: 0 !important;
+    text-decoration-color: orange !important;
+  
+    .anticon {
+      color: orange !important;
+    }
+  }
 `;

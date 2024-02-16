@@ -1,0 +1,19 @@
+import { createGlobalStyle } from 'styled-components';
+
+const GlobalStyle = createGlobalStyle`
+    .ant-menu-item-selected {
+        background-color: yellow !important;
+
+        .anticon {
+            color: yellow !important;
+        }
+    }
+`;
+
+// In your component
+return (
+    <>
+        <GlobalStyle />
+        {/* rest of your code */}
+    </>
+);
