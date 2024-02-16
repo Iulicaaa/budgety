@@ -138,7 +138,7 @@ const GlobalStyle = createGlobalStyle`
     
     border-right: 3px solid orange !important;
     border-radius: 0 !important;
-    text-decoration-color: orange !important;
+    color: orange !important;
   
     .anticon {
       color: orange !important;
