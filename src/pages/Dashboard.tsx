@@ -9,16 +9,50 @@ import styled from "styled-components";
 const Dashboard = () => {
   return (
     <PageLayout>
-      <Card>
-        <Content>dashboard</Content>
-      </Card>
+      <CardWrapper>
+        <Card1>
+          <Bar>
+            <p>Latest Transactions</p>
+            <PlusCircleOutlined />
+          </Bar>
+          <Divider
+            style={{
+              padding: 0,
+              margin: 0,
+            }}
+          />
+          <Content>
+            <Image src={man_with_phone} />
+            <p>your transactions will apear here</p>
+          </Content>
+        </Card1>
+        <Card2>
+          <Bar>
+            <p>Calendar</p>
+            <IconDiv>
+              <LeftCircleOutlined />
+              <RightCircleOutlined />
+            </IconDiv>
+          </Bar>
+          <Divider
+            style={{
+              padding: 0,
+              margin: 0,
+            }}
+          />
+          <Content>
+            <Image src={woman_on_laptop} />
+            <p>your monthly insights</p>
+          </Content>
+        </Card2>
+      </CardWrapper>
     </PageLayout>
   );
 };
 
 export default Dashboard;
 
-const Card = styled.div`
+const Card1 = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
