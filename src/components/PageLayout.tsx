@@ -2,9 +2,9 @@ import React, { useState } from "react";
 import {
   MenuFoldOutlined,
   MenuUnfoldOutlined,
-  UploadOutlined,
-  UserOutlined,
-  VideoCameraOutlined,
+  WalletOutlined,
+  ClockCircleOutlined,
+  VerticalAlignMiddleOutlined,
 } from "@ant-design/icons";
 import { Layout, Menu, Button, theme } from "antd";
 import logo_large from "@/assets/logo_large.svg";
@@ -31,17 +31,17 @@ export const PageLayout = ({ children }: PageLayoutProps) => {
     // Define your menu items
     {
       key: "1",
-      icon: <UserOutlined />,
+      icon: <ClockCircleOutlined />,
       label: "Dashboard",
     },
     {
       key: "2",
-      icon: <VideoCameraOutlined />,
+      icon: <VerticalAlignMiddleOutlined />,
       label: "Transactions",
     },
     {
       key: "3",
-      icon: <UploadOutlined />,
+      icon: <WalletOutlined />,
       label: "Budget",
     },
   ];
@@ -73,13 +73,13 @@ export const PageLayout = ({ children }: PageLayoutProps) => {
           {/* </Link> */}
           {/* </Menu.Item> */}
 
-          <Menu.Item key="1" icon={<UserOutlined />}>
+          <Menu.Item key="1" icon={<ClockCircleOutlined />}>
             <Link to="/dashboard">Dashboard</Link>
           </Menu.Item>
-          <Menu.Item key="2" icon={<VideoCameraOutlined />}>
+          <Menu.Item key="2" icon={<VerticalAlignMiddleOutlined />}>
             <Link to="/transactions">Transactions</Link>
           </Menu.Item>
-          <Menu.Item key="3" icon={<UploadOutlined />}>
+          <Menu.Item key="3" icon={<WalletOutlined />}>
             <Link to="/budget">Budget</Link>
           </Menu.Item>
         </Menu>
