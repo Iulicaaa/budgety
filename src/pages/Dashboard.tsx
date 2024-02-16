@@ -15,7 +15,7 @@ import man_on_office from "@/assets/man_on_office.svg";
 
 const Dashboard = () => {
   return (
-    <PageLayout>
+    <PageLayout title="Dashboard">
       <CardWrapper>
         <Card1>
           <Bar>

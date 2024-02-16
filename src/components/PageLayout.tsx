@@ -18,9 +18,10 @@ const { Header, Sider, Footer, Content } = Layout;
 
 type PageLayoutProps = {
   children: React.ReactNode;
+  title: string;
 };
 
-export const PageLayout = ({ children }: PageLayoutProps) => {
+export const PageLayout = ({ children, title }: PageLayoutProps) => {
   const [collapsed, setCollapsed] = useState(false);
   const {
     token: { colorBgContainer, borderRadiusLG },
@@ -59,12 +60,8 @@ export const PageLayout = ({ children }: PageLayoutProps) => {
         </LogoWrapper>
         <Menu
           mode="inline"
-          defaultSelectedKeys={["1"]}
-          onSelect={({ key }) =>
-            setSelectedMenu(
-              menuItems.find((item) => item.key === key)?.label || "",
-            )
-          } // Update selectedMenu when a menu item is selected
+          selectedKeys={[selectedMenu]}
+          onSelect={({ key }) => setSelectedMenu(key)} // Update selectedMenu when a menu item is selected
         >
           {/* {menuItems.map((item) => (
             <Menu.Item key={item.key} icon={item.icon}>
@@ -96,7 +93,7 @@ export const PageLayout = ({ children }: PageLayoutProps) => {
               height: 64,
             }}
           />
-          {selectedMenu}
+          {title}
         </Header>
         <Content
           style={{

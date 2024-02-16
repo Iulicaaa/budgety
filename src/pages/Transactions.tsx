@@ -14,7 +14,7 @@ import Icon from "@ant-design/icons/lib/components/Icon";
 
 const Transactions = () => {
   return (
-    <PageLayout>
+    <PageLayout title="Transactions">
       <CardWrapper>
         <Card1>
           <Bar>
