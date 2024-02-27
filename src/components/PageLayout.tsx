@@ -11,7 +11,6 @@ import logo_large from "@/assets/logo_large.svg";
 import styled from "styled-components";
 import logo_small from "@/assets/logo_small.svg";
 import { Link } from "react-router-dom";
-import { Outlet } from "react-router-dom";
 import { Divider } from "antd";
 import { createGlobalStyle } from "styled-components";
 
@@ -20,33 +19,18 @@ const { Header, Sider, Footer, Content } = Layout;
 type PageLayoutProps = {
   children: React.ReactNode;
   title: string;
+  selectedKey: "dashboard" | "transactions" | "budget";
 };
 
-export const PageLayout = ({ children, title }: PageLayoutProps) => {
+export const PageLayout = ({
+  children,
+  title,
+  selectedKey,
+}: PageLayoutProps) => {
   const [collapsed, setCollapsed] = useState(false);
   const {
     token: { colorBgContainer },
   } = theme.useToken();
-  const [selectedMenu, setSelectedMenu] = useState("Dashboard"); // Add this line
-
-  const menuItems = [
-    // Define your menu items
-    {
-      key: "1",
-      icon: <ClockCircleOutlined />,
-      label: "Dashboard",
-    },
-    {
-      key: "2",
-      icon: <VerticalAlignMiddleOutlined />,
-      label: "Transactions",
-    },
-    {
-      key: "3",
-      icon: <WalletOutlined />,
-      label: "Budget",
-    },
-  ];
 
   return (
     <>
@@ -61,25 +45,17 @@ export const PageLayout = ({ children, title }: PageLayoutProps) => {
           <LogoWrapper>
             <img src={collapsed ? logo_small : logo_large} />
           </LogoWrapper>
-          <Menu
-            mode="inline"
-            selectedKeys={[selectedMenu]}
-            onSelect={({ key }) => setSelectedMenu(key)} // Update selectedMenu when a menu item is selected
-          >
-            {/* {menuItems.map((item) => (
-            <Menu.Item key={item.key} icon={item.icon}>
-              {/* <Link to={{ pathname: `/${item.label.toLowerCase()}` }}> */}
-            {/* {item.label} */}
-            {/* </Link> */}
-            {/* </Menu.Item> */}
-
-            <Menu.Item key="1" icon={<ClockCircleOutlined />}>
+          <Menu mode="inline" selectedKeys={[selectedKey]}>
+            <Menu.Item key="dashboard" icon={<ClockCircleOutlined />}>
               <Link to="/dashboard">Dashboard</Link>
             </Menu.Item>
-            <Menu.Item key="2" icon={<VerticalAlignMiddleOutlined />}>
+            <Menu.Item
+              key="transactions"
+              icon={<VerticalAlignMiddleOutlined />}
+            >
               <Link to="/transactions">Transactions</Link>
             </Menu.Item>
-            <Menu.Item key="3" icon={<WalletOutlined />}>
+            <Menu.Item key="budget" icon={<WalletOutlined />}>
               <Link to="/budget">Budget</Link>
             </Menu.Item>
           </Menu>

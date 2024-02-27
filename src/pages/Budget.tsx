@@ -6,7 +6,7 @@ import { CalendarOutlined } from "@ant-design/icons";
 
 const Budget = () => {
   return (
-    <PageLayout title="Budget">
+    <PageLayout title="Budget" selectedKey="budget">
       <Card>
         <Bar>
           <SettingsDiv>
