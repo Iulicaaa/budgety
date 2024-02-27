@@ -4,6 +4,7 @@ import Dashboard from "@/pages/Dashboard";
 import Transactions from "./pages/Transactions";
 import Budget from "./pages/Budget";
 import man_on_office from "@/assets/man_on_office.svg";
+import Login from "./components/Login";
 
 const router = createBrowserRouter([
   {
@@ -21,6 +22,10 @@ const router = createBrowserRouter([
   {
     path: "/budget",
     element: <Budget />,
+  },
+  {
+    path: "/login",
+    element: <Login />,
   },
 ]);
 
