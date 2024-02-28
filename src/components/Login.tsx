@@ -47,10 +47,15 @@ const Image = styled.img`
   height: auto;
 `;
 
+const onFinish = (values: any) => {
+  console.log("Username: ", values.username);
+  console.log("Password: ", values.password);
+};
+
 const Login: React.FC = () => {
   return (
     <Layout>
-      <StyledForm>
+      <StyledForm name="login" onFinish={onFinish} scrollToFirstError>
         <LogoWrapper>
           <img src={logo_large} />
         </LogoWrapper>
@@ -59,18 +64,6 @@ const Login: React.FC = () => {
           Please sign in to your personal account if you want to use all our
           premium products
         </p>
-        <Form.Item
-          name="FullName"
-          label="Full Name"
-          rules={[
-            {
-              required: true,
-              message: "Please input your full name!",
-            },
-          ]}
-        >
-          <Input />
-        </Form.Item>
 
         <Form.Item
           name="username"
@@ -116,9 +109,7 @@ const Login: React.FC = () => {
           ]}
           {...tailFormItemLayout}
         >
-          <Checkbox>
-            I agree with <a href="">terms and conditions</a>
-          </Checkbox>
+          <Checkbox>Remember me</Checkbox>
         </Form.Item>
         <Form.Item {...tailFormItemLayout}>
           <Button type="primary" htmlType="submit">
@@ -127,7 +118,7 @@ const Login: React.FC = () => {
         </Form.Item>
 
         <Form.Item>
-          Already have an account? <a href="#">Sign in here!</a>
+          Don't have an account? <a href="#">Sign up here!</a>
         </Form.Item>
       </StyledForm>
 
