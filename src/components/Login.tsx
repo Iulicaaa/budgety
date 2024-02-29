@@ -2,6 +2,7 @@ import { Button, Checkbox, Form, Input } from "antd";
 import city_street from "@/assets/city_street.png";
 import logo_large from "@/assets/logo_large.svg";
 import styled from "styled-components";
+import axios from "axios";
 
 const tailFormItemLayout = {
   wrapperCol: {
@@ -50,7 +51,62 @@ const Image = styled.img`
 const onFinish = (values: any) => {
   console.log("Username: ", values.username);
   console.log("Password: ", values.password);
+  LogIn(values.username, values.password);
+  CreateTransactions(values.token);
+  // TransactionList(values.token);
 };
+
+const token =
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7InVzZXJuYW1lIjoiam9obmRvZSJ9LCJpYXQiOjE2MzIwNzYwMzcsImV4cCI6MTYzMjA3NjA5N30.3Z";
+
+const LogIn = async (username: string, password: string) => {
+  try {
+    const response = await axios.post(
+      "https://budgety-api-node.onrender.com/auth/login",
+      {
+        username: "johndoe",
+        password: "123456",
+      },
+    );
+
+    // const token = response.data.token;
+
+    // console.log("Token: ", token);
+  } catch (error) {
+    console.error("Error: ", error);
+  }
+};
+
+const CreateTransactions = async (token: string) => {
+  try {
+    const response = await axios.post(
+      "https://budgety-api-node.onrender.com/transactions/",
+      {
+        service: "korean",
+        amount: "200",
+        paymentDate: "2009-11-13T10:39:35Z",
+        category: "mancare",
+      },
+      { headers: { Authorization: `Bearer ${token}` } },
+    );
+
+    console.log(response);
+  } catch (error) {
+    console.error("Error: ", error);
+  }
+};
+
+// const TransactionList = async (token: string) => {
+//   try {
+//     const response = await axios.get(
+//       "https://budgety-api-node.onrender.com/transactions/",
+//       { headers: { Authorization: `Bearer ${token}` } },
+//     );
+//     console.log(response);
+//   } catch (error) {
+//     console.error("Error: ", error);
+//   }
+// };
 
 const Login: React.FC = () => {
   return (
