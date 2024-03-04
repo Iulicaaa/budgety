@@ -2,6 +2,7 @@ import { Button, Checkbox, Form, Input } from "antd";
 import city_street from "@/assets/city_street.png";
 import logo_large from "@/assets/logo_large.svg";
 import styled from "styled-components";
+import { LogIn, CreateTransactions, TransactionList } from "@/requests";
 
 const tailFormItemLayout = {
   wrapperCol: {
@@ -47,10 +48,18 @@ const Image = styled.img`
   height: auto;
 `;
 
-const Login: React.FC = () => {
+const onFinish = async (values: any) => {
+  console.log("Username: ", values.username);
+  console.log("Password: ", values.password);
+  await LogIn(values.username, values.password);
+  CreateTransactions();
+  TransactionList();
+};
+
+const Register: React.FC = () => {
   return (
     <Layout>
-      <StyledForm>
+      <StyledForm name="register" onFinish={onFinish} scrollToFirstError>
         <LogoWrapper>
           <img src={logo_large} />
         </LogoWrapper>
@@ -77,7 +86,7 @@ const Login: React.FC = () => {
           label="Username"
           rules={[
             {
-              type: "email",
+              type: "string",
               message: "The input is not valid Username!",
             },
             {
@@ -136,4 +145,4 @@ const Login: React.FC = () => {
   );
 };
 
-export default Login;
+export default Register;
