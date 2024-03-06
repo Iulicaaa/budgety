@@ -7,6 +7,16 @@ import {
   CreateTransactions,
   TransactionList,
   Register,
+  UpdateTransactionId,
+  DeleteTransaction,
+  CreateCategory,
+  CategoryList,
+  UpdateCategoryId,
+  DeleteCategory,
+  createBudget,
+  BudgetList,
+  UpdateBudgets,
+  DeleteBudgets,
 } from "@/requests";
 import { functieDeRequest } from "@/requests";
 
@@ -60,6 +70,18 @@ const onFinish = async (values: any) => {
   await LogIn(values.username, values.password);
   CreateTransactions();
   TransactionList();
+  UpdateTransactionId();
+  DeleteTransaction();
+  Register(values.username, values.password, values.fullName);
+  CreateCategory();
+  functieDeRequest();
+  CategoryList();
+  UpdateCategoryId();
+  DeleteCategory();
+  createBudget();
+  BudgetList();
+  UpdateBudgets();
+  DeleteBudgets();
 };
 
 const Login: React.FC = () => {
