@@ -36,7 +36,7 @@ export const DeleteTransaction = async () => {
   try {
     const token = localStorage.getItem("authToken");
     const response = await axios.delete(
-      "/transactions/65e861413b25e53a0a5a0a9e",
+      "/transactions/65e8620c3b25e53a0a5a0aa4",
       {
         headers: { Authorization: `Bearer ${token}` },
       },

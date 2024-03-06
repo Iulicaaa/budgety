@@ -72,7 +72,7 @@ const onFinish = async (values: any) => {
   TransactionList();
   UpdateTransactionId();
   DeleteTransaction();
-  Register(values.username, values.password, values.fullName);
+  // Register(values.username, values.password, values.fullName);
   CreateCategory();
   functieDeRequest();
   CategoryList();

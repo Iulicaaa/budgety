@@ -2,7 +2,21 @@ import { Button, Checkbox, Form, Input } from "antd";
 import city_street from "@/assets/city_street.png";
 import logo_large from "@/assets/logo_large.svg";
 import styled from "styled-components";
-import { LogIn, CreateTransactions, TransactionList } from "@/requests";
+import {
+  functieDeRequest,
+  CreateTransactions,
+  TransactionList,
+  UpdateTransactionId,
+  DeleteTransaction,
+  CreateCategory,
+  CategoryList,
+  UpdateCategoryId,
+  DeleteCategory,
+  createBudget,
+  BudgetList,
+  UpdateBudgets,
+  DeleteBudgets,
+} from "@/requests";
 
 const tailFormItemLayout = {
   wrapperCol: {
@@ -51,9 +65,21 @@ const Image = styled.img`
 const onFinish = async (values: any) => {
   console.log("Username: ", values.username);
   console.log("Password: ", values.password);
-  await LogIn(values.username, values.password);
+  // await LogIn(values.username, values.password);
+  // await Register(values.username, values.password, values.fullName);
   CreateTransactions();
   TransactionList();
+  UpdateTransactionId();
+  DeleteTransaction();
+  CreateCategory();
+  functieDeRequest();
+  CategoryList();
+  UpdateCategoryId();
+  DeleteCategory();
+  createBudget();
+  BudgetList();
+  UpdateBudgets();
+  DeleteBudgets();
 };
 
 const Register: React.FC = () => {

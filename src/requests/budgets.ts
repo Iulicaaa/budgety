@@ -51,7 +51,7 @@ export const UpdateBudgets = async () => {
 export const DeleteBudgets = async () => {
   try {
     const token = localStorage.getItem("authToken");
-    const response = await axios.delete("/budgets/65e863863b25e53a0a5a0ae5", {
+    const response = await axios.delete("/budgets/65e861b73b25e53a0a5a0aa1", {
       headers: { Authorization: `Bearer ${token}` },
     });
     console.log(response);
