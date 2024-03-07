@@ -1,17 +1,31 @@
 import axios from "axios";
 
-export const CreateTransactions = async () => {
+type Transaction = {
+  service: string;
+  amount: number;
+  paymentDate: string;
+  categoryId: string;
+};
+
+type CreateTransactionRequest = Transaction;
+
+type TransactionId = {
+  _id: string;
+};
+
+type CreateTransactionResponse = {
+  _id: string;
+  service: string;
+  amount: number;
+  paymentDate: string;
+  categoryId: string;
+};
+
+export const CreateTransactions = async (data: CreateTransactionRequest) => {
   try {
-    const token = localStorage.getItem("authToken");
-    const response = await axios.post(
+    const response = await axios.post<CreateTransactionResponse>(
       "/transactions/",
-      {
-        service: "korean",
-        amount: "200",
-        paymentDate: "2009-11-13T10:39:35Z",
-        categoryId: "65df7ceabbfaf34ed67a7be4",
-      },
-      { headers: { Authorization: `Bearer ${token}` } },
+      data,
     );
 
     console.log(response);
@@ -22,24 +36,27 @@ export const CreateTransactions = async () => {
 
 export const TransactionList = async () => {
   try {
-    const token = localStorage.getItem("authToken");
-    const response = await axios.get("/transactions/", {
-      headers: { Authorization: `Bearer ${token}` },
-    });
+    const response = await axios.get("/transactions/");
     console.log(response);
   } catch (error) {
     console.error("Error: ", error);
   }
 };
 
-export const DeleteTransaction = async () => {
+export const DeleteTransaction = async (data: TransactionId) => {
   try {
-    const token = localStorage.getItem("authToken");
-    const response = await axios.delete(
-      "/transactions/65e8620c3b25e53a0a5a0aa4",
-      {
-        headers: { Authorization: `Bearer ${token}` },
-      },
+    const response = await axios.delete(`/transactions/${data._id}`);
+    console.log(response);
+  } catch (error) {
+    console.error("Error: ", error);
+  }
+};
+
+export const UpdateTransactionId = async (data: CreateTransactionRequest) => {
+  try {
+    const response = await axios.put<CreateTransactionResponse>(
+      "/transactions/",
+      data,
     );
     console.log(response);
   } catch (error) {
@@ -47,33 +64,9 @@ export const DeleteTransaction = async () => {
   }
 };
 
-export const UpdateTransactionId = async () => {
+export const TransactionId = async (data: TransactionId) => {
   try {
-    const token = localStorage.getItem("authToken");
-    const response = await axios.put(
-      "/transactions/65df7ab32f64263285be4aa3",
-      {
-        service: "autobuz",
-        amount: "5",
-        paymentDate: "2009-11-13T10:39:35Z",
-        categoryId: "65df7a482f64263285be4a9d",
-      },
-      {
-        headers: { Authorization: `Bearer ${token}` },
-      },
-    );
-    console.log(response);
-  } catch (error) {
-    console.error("Error: ", error);
-  }
-};
-
-export const TransactionId = async () => {
-  try {
-    const token = localStorage.getItem("authToken");
-    const response = await axios.get("/transactions/65df7ab32f64263285be4aa3", {
-      headers: { Authorization: `Bearer ${token}` },
-    });
+    const response = await axios.get(`/transactions/${data._id}`);
     console.log(response);
   } catch (error) {
     console.error("Error: ", error);

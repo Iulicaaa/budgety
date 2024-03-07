@@ -16,6 +16,7 @@ import {
   BudgetList,
   UpdateBudgets,
   DeleteBudgets,
+  register,
 } from "@/requests";
 
 const tailFormItemLayout = {
@@ -66,20 +67,7 @@ const onFinish = async (values: any) => {
   console.log("Username: ", values.username);
   console.log("Password: ", values.password);
   // await LogIn(values.username, values.password);
-  // await Register(values.username, values.password, values.fullName);
-  CreateTransactions();
-  TransactionList();
-  UpdateTransactionId();
-  DeleteTransaction();
-  CreateCategory();
-  functieDeRequest();
-  CategoryList();
-  UpdateCategoryId();
-  DeleteCategory();
-  createBudget();
-  BudgetList();
-  UpdateBudgets();
-  DeleteBudgets();
+  await register(values.username, values.password, values.fullName);
 };
 
 const Register: React.FC = () => {

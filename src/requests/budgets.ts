@@ -1,59 +1,57 @@
 import axios from "axios";
 
-export const createBudget = () => {
-  try {
-    const token = localStorage.getItem("authToken");
-    const response = axios.post(
-      "/budgets/",
-      {
-        categoryId: "65df7ceabbfaf34ed67a7be4",
-        amount: 5700,
-      },
-      { headers: { Authorization: `Bearer ${token}` } },
-    );
+type Budget = {
+  _id: string;
+  amount: number;
+  categoryId: string;
+};
 
-    console.log(response);
+type DeleteBudgetRequest = {
+  categoryId: string;
+};
+
+type CreateBudgetRequest = {
+  categoryId: string;
+  amount: number;
+};
+
+type CreateBudgetResponse = Budget;
+
+export const createBudget = async (data: CreateBudgetRequest) => {
+  console.log("creating budget");
+  try {
+    const resp = await axios.post<CreateBudgetResponse>("/budgets", data);
+
+    console.log(resp.data);
+    return resp.data;
   } catch (error) {
-    console.error("Error: ", error);
+    console.log(error);
   }
 };
 
 export const BudgetList = async () => {
   try {
-    const token = localStorage.getItem("authToken");
-    const response = await axios.get("/budgets/", {
-      headers: { Authorization: `Bearer ${token}` },
-    });
+    const response = await axios.get("/budgets/");
     console.log(response);
   } catch (error) {
     console.error("Error: ", error);
   }
 };
 
-export const UpdateBudgets = async () => {
+export const UpdateBudgets = async (data: CreateBudgetRequest) => {
   try {
-    const token = localStorage.getItem("authToken");
-    const response = await axios.put(
-      "/budgets/65df9822cf64b5a9ca80ccf7",
-      {
-        amount: "5",
-      },
-      {
-        headers: { Authorization: `Bearer ${token}` },
-      },
-    );
+    const response = await axios.put<CreateBudgetResponse>("/budgets/", data);
     console.log(response);
   } catch (error) {
     console.error("Error: ", error);
   }
 };
 
-export const DeleteBudgets = async () => {
+//??????????????? - e ok? mai trebuie si create response?
+
+export const DeleteBudgets = async (data: DeleteBudgetRequest) => {
   try {
-    const token = localStorage.getItem("authToken");
-    const response = await axios.delete("/budgets/65e861b73b25e53a0a5a0aa1", {
-      headers: { Authorization: `Bearer ${token}` },
-    });
+    const response = await axios.delete(`/budgets/${data.categoryId}`);
     console.log(response);
   } catch (error) {
     console.error("Error: ", error);

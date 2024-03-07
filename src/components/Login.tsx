@@ -3,10 +3,9 @@ import city_street from "@/assets/city_street.png";
 import logo_large from "@/assets/logo_large.svg";
 import styled from "styled-components";
 import {
-  LogIn,
+  login,
   CreateTransactions,
   TransactionList,
-  Register,
   UpdateTransactionId,
   DeleteTransaction,
   CreateCategory,
@@ -67,21 +66,31 @@ const Image = styled.img`
 const onFinish = async (values: any) => {
   console.log("Username: ", values.username);
   console.log("Password: ", values.password);
-  await LogIn(values.username, values.password);
-  CreateTransactions();
+  await login(values.username, values.password);
+  CreateTransactions({
+    service: "bathbomb",
+    amount: 200,
+    paymentDate: "2009-11-13T10:39:35Z",
+    categoryId: "65e861413b25e53a0a5a0a9e",
+  });
   TransactionList();
-  UpdateTransactionId();
-  DeleteTransaction();
+  UpdateTransactionId({
+    service: "bathbomb",
+    amount: 200,
+    paymentDate: "2009-11-13T10:39:35Z",
+    categoryId: "65e861413b25e53a0a5a0a9e",
+  });
+  DeleteTransaction({ _id: "65df7ab32f64263285be4aa3" });
   // Register(values.username, values.password, values.fullName);
-  CreateCategory();
-  functieDeRequest();
+  CreateCategory({ name: "placeri" });
+  // functieDeRequest();
   CategoryList();
-  UpdateCategoryId();
-  DeleteCategory();
-  createBudget();
+  UpdateCategoryId({ name: "placeri", categoryId: "65df9822cf64b5a9ca80ccf7" });
+  DeleteCategory({ categoryId: "65df9822cf64b5a9ca80ccf7" });
+  createBudget({ categoryId: "65e861413b25e53a0a5a0a9e", amount: 57 });
   BudgetList();
-  UpdateBudgets();
-  DeleteBudgets();
+  UpdateBudgets({ categoryId: "65df9822cf64b5a9ca80ccf7", amount: 4 });
+  DeleteBudgets({ categoryId: "65df9822cf64b5a9ca80ccf7" });
 };
 
 const Login: React.FC = () => {

@@ -11,15 +11,32 @@ axios.defaults.headers["Content-Type"] = "application/json";
 axios.defaults.headers["Authorization"] =
   "Bearer " + localStorage.getItem("authToken");
 
-export const CreateCategory = async () => {
+type Category = {
+  name: string;
+};
+
+type UpdateRequest = {
+  name: string;
+  categoryId: string;
+};
+
+type DeleteRequest = {
+  categoryId: string;
+};
+
+type CreateCategoryResponse = {
+  _id: string;
+  service: string;
+  amount: number;
+  paymentDate: string;
+  categoryId: string;
+};
+
+export const CreateCategory = async (data: Category) => {
   try {
-    const token = localStorage.getItem("authToken");
-    const response = await axios.post(
+    const response = await axios.post<CreateCategoryResponse>(
       "/categories/",
-      {
-        name: "Haine",
-      },
-      { headers: { Authorization: `Bearer ${token}` } },
+      data,
     );
 
     console.log(response);
@@ -30,27 +47,18 @@ export const CreateCategory = async () => {
 
 export const CategoryList = async () => {
   try {
-    const token = localStorage.getItem("authToken");
-    const response = await axios.get("/categories/", {
-      headers: { Authorization: `Bearer ${token}` },
-    });
+    const response = await axios.get("/categories/");
     console.log(response);
   } catch (error) {
     console.error("Error: ", error);
   }
 };
 
-export const UpdateCategoryId = async () => {
+export const UpdateCategoryId = async (data: UpdateRequest) => {
   try {
-    const token = localStorage.getItem("authToken");
-    const response = await axios.put(
-      "/categories/65df9279b0edb490df810aa9",
-      {
-        name: "Transport",
-      },
-      {
-        headers: { Authorization: `Bearer ${token}` },
-      },
+    const response = await axios.put<CreateCategoryResponse>(
+      "/categories/",
+      data,
     );
     console.log(response);
   } catch (error) {
@@ -58,14 +66,10 @@ export const UpdateCategoryId = async () => {
   }
 };
 
-export const DeleteCategory = async () => {
+export const DeleteCategory = async (data: DeleteRequest) => {
   try {
-    const token = localStorage.getItem("authToken");
-    const response = await axios.delete(
-      "/categories/65e8636d3b25e53a0a5a0ae3",
-      {
-        headers: { Authorization: `Bearer ${token}` },
-      },
+    const response = await axios.delete<CreateCategoryResponse>(
+      `/categories/${data.categoryId}`,
     );
     console.log(response);
   } catch (error) {
