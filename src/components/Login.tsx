@@ -18,6 +18,10 @@ import {
   DeleteBudgets,
 } from "@/requests";
 import { functieDeRequest } from "@/requests";
+import { Router } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { Navigate } from "react-router-dom";
+import { useState } from "react";
 
 const tailFormItemLayout = {
   wrapperCol: {
@@ -63,37 +67,41 @@ const Image = styled.img`
   height: auto;
 `;
 
-const onFinish = async (values: any) => {
-  console.log("Username: ", values.username);
-  console.log("Password: ", values.password);
-  await login(values.username, values.password);
-  CreateTransactions({
-    service: "bathbomb",
-    amount: 200,
-    paymentDate: "2009-11-13T10:39:35Z",
-    categoryId: "65e861413b25e53a0a5a0a9e",
-  });
-  TransactionList();
-  UpdateTransactionId({
-    service: "bathbomb",
-    amount: 200,
-    paymentDate: "2009-11-13T10:39:35Z",
-    categoryId: "65e861413b25e53a0a5a0a9e",
-  });
-  DeleteTransaction({ _id: "65df7ab32f64263285be4aa3" });
-  // Register(values.username, values.password, values.fullName);
-  CreateCategory({ name: "placeri" });
-  // functieDeRequest();
-  CategoryList();
-  UpdateCategoryId({ name: "placeri", categoryId: "65df9822cf64b5a9ca80ccf7" });
-  DeleteCategory({ categoryId: "65df9822cf64b5a9ca80ccf7" });
-  createBudget({ categoryId: "65e861413b25e53a0a5a0a9e", amount: 57 });
-  BudgetList();
-  UpdateBudgets({ categoryId: "65df9822cf64b5a9ca80ccf7", amount: 4 });
-  DeleteBudgets({ categoryId: "65df9822cf64b5a9ca80ccf7" });
-};
+//   CreateTransactions({
+//     service: "bathbomb",
+//     amount: 200,
+//     paymentDate: "2009-11-13T10:39:35Z",
+//     categoryId: "65e861413b25e53a0a5a0a9e",
+//   });
+//   TransactionList();
+//   UpdateTransactionId({
+//     service: "bathbomb",
+//     amount: 200,
+//     paymentDate: "2009-11-13T10:39:35Z",
+//     categoryId: "65e861413b25e53a0a5a0a9e",
+//   });
+//   DeleteTransaction({ _id: "65df7ab32f64263285be4aa3" });
+//   // Register(values.username, values.password, values.fullName);
+//   CreateCategory({ name: "placeri" });
+//   // functieDeRequest();
+//   CategoryList();
+//   UpdateCategoryId({ name: "placeri", categoryId: "65df9822cf64b5a9ca80ccf7" });
+//   DeleteCategory({ categoryId: "65df9822cf64b5a9ca80ccf7" });
+//   createBudget({ categoryId: "65e861413b25e53a0a5a0a9e", amount: 57 });
+//   BudgetList();
+//   UpdateBudgets({ categoryId: "65df9822cf64b5a9ca80ccf7", amount: 4 });
+//   DeleteBudgets({ categoryId: "65df9822cf64b5a9ca80ccf7" });
 
 const Login: React.FC = () => {
+  const navigate = useNavigate();
+
+  const onFinish = async (values: any) => {
+    console.log("Username: ", values.username);
+    console.log("Password: ", values.password);
+    await login(values.username, values.password);
+    navigate("/dashboard");
+  };
+
   return (
     <Layout>
       <StyledForm name="login" onFinish={onFinish} scrollToFirstError>
