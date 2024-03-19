@@ -1,36 +1,31 @@
 import axios from "axios";
 
-export const login = async (username: string, password: string) => {
-  try {
-    const response = await axios.post("/auth/login", {
-      username: username,
-      password: password,
-    });
-
-    const token = response.data.token;
-    localStorage.setItem("authToken", token);
-    axios.defaults.headers["Authorization"] = "Bearer " + token;
-  } catch (error) {
-    console.error("Error: ", error);
-  }
+type LoginRequest = {
+  username: string;
+  password: string;
 };
 
-export const register = async (
-  username: string,
-  password: string,
-  fullName: string,
-) => {
-  try {
-    const response = await axios.post("/auth/register", {
-      username: username,
-      password: password,
-      fullName: fullName,
-    });
+type LoginResponse = {
+  token: string;
+};
 
-    const token = response.data.token;
-    localStorage.setItem("authToken", token);
-    axios.defaults.headers["Authorization"] = "Bearer " + token;
-  } catch (error) {
-    console.error("Error: ", error);
-  }
+export const login = async (data: LoginRequest) => {
+  const response = await axios.post<LoginResponse>("/auth/login", data);
+  return response.data;
+};
+
+type RegisterRequest = {
+  username: string;
+  password: string;
+  fullName: string;
+};
+
+type RegisterResponse = {
+  token: string;
+};
+
+export const register = async (data: RegisterRequest) => {
+  const response = await axios.post<RegisterResponse>("/auth/register", data);
+
+  return response.data;
 };

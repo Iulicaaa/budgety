@@ -92,13 +92,29 @@ const Image = styled.img`
 //   UpdateBudgets({ categoryId: "65df9822cf64b5a9ca80ccf7", amount: 4 });
 //   DeleteBudgets({ categoryId: "65df9822cf64b5a9ca80ccf7" });
 
-const Login: React.FC = () => {
+type FieldType = {
+  username: string;
+  password: string;
+  remember: boolean;
+};
+
+type LoginProps = {
+  onLogin: (token: string) => void;
+};
+
+const Login = ({ onLogin }: LoginProps) => {
   const navigate = useNavigate();
 
-  const onFinish = async (values: any) => {
+  const onFinish = async (values: FieldType) => {
     console.log("Username: ", values.username);
     console.log("Password: ", values.password);
-    await login(values.username, values.password);
+    const result = await login(values);
+
+    if (result) {
+      onLogin(result.token);
+      navigate("/dashboard");
+    }
+
     navigate("/dashboard");
   };
 
