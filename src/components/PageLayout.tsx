@@ -6,13 +6,14 @@ import {
   ClockCircleOutlined,
   VerticalAlignMiddleOutlined,
 } from "@ant-design/icons";
-import { Layout, Menu, Button, theme } from "antd";
+import { Layout, Menu, Button, theme, Flex } from "antd";
 import logo_large from "@/assets/logo_large.svg";
 import styled from "styled-components";
 import logo_small from "@/assets/logo_small.svg";
 import { Link } from "react-router-dom";
 import { Divider } from "antd";
 import { createGlobalStyle } from "styled-components";
+import { useAuth } from "@/contexts/AuthContext";
 
 const { Header, Sider, Footer, Content } = Layout;
 
@@ -27,6 +28,7 @@ export const PageLayout = ({
   title,
   selectedKey,
 }: PageLayoutProps) => {
+  const { user } = useAuth();
   const [collapsed, setCollapsed] = useState(false);
   const {
     token: { colorBgContainer },
@@ -62,17 +64,24 @@ export const PageLayout = ({
         </Sider>
         <Layout>
           <Header style={{ padding: 0, background: colorBgContainer }}>
-            <Button
-              type="text"
-              icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
-              onClick={() => setCollapsed(!collapsed)}
-              style={{
-                fontSize: "16px",
-                width: 64,
-                height: 64,
-              }}
-            />
-            {title}
+            <Flex justify="space-between" style={{ paddingRight: 20 }}>
+              <div>
+                <Button
+                  type="text"
+                  icon={
+                    collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />
+                  }
+                  onClick={() => setCollapsed(!collapsed)}
+                  style={{
+                    fontSize: "16px",
+                    width: 64,
+                    height: 64,
+                  }}
+                />
+                {title}
+              </div>
+              <div> {user?.username}</div>
+            </Flex>
           </Header>
           <Content
             style={{

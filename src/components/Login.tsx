@@ -22,6 +22,7 @@ import { Router } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { Navigate } from "react-router-dom";
 import { useState } from "react";
+import { useAuth } from "@/contexts/AuthContext";
 
 const tailFormItemLayout = {
   wrapperCol: {
@@ -98,22 +99,14 @@ type FieldType = {
   remember: boolean;
 };
 
-type LoginProps = {
-  onLogin: (token: string) => void;
-};
-
-const Login = ({ onLogin }: LoginProps) => {
+const Login = () => {
   const navigate = useNavigate();
+  const { login } = useAuth();
 
   const onFinish = async (values: FieldType) => {
     console.log("Username: ", values.username);
     console.log("Password: ", values.password);
-    const result = await login(values);
-
-    if (result) {
-      onLogin(result.token);
-      navigate("/dashboard");
-    }
+    await login(values.username, values.password);
 
     navigate("/dashboard");
   };
@@ -130,7 +123,7 @@ const Login = ({ onLogin }: LoginProps) => {
           premium products
         </p>
 
-        <Form.Item
+        <Form.Item<FieldType>
           name="username"
           label="Username"
           rules={[
@@ -147,7 +140,7 @@ const Login = ({ onLogin }: LoginProps) => {
           <Input />
         </Form.Item>
 
-        <Form.Item
+        <Form.Item<FieldType>
           name="password"
           label="Password"
           rules={[
@@ -161,8 +154,8 @@ const Login = ({ onLogin }: LoginProps) => {
           <Input.Password />
         </Form.Item>
 
-        <Form.Item
-          name="agreement"
+        <Form.Item<FieldType>
+          name="remember"
           valuePropName="checked"
           rules={[
             {
