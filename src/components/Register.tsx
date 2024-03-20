@@ -18,6 +18,7 @@ import {
   DeleteBudgets,
   register,
 } from "@/requests";
+import { Link } from "react-router-dom";
 
 const tailFormItemLayout = {
   wrapperCol: {
@@ -150,7 +151,7 @@ const Register: React.FC = () => {
         </Form.Item>
 
         <Form.Item>
-          Already have an account? <a href="#">Sign in here!</a>
+          Already have an account? <Link to="/Login">Sign in here!</Link>
         </Form.Item>
       </StyledForm>
 

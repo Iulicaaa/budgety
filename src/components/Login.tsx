@@ -18,7 +18,7 @@ import {
   DeleteBudgets,
 } from "@/requests";
 import { functieDeRequest } from "@/requests";
-import { Router } from "react-router-dom";
+import { Link, Router } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { Navigate } from "react-router-dom";
 import { useState } from "react";
@@ -93,17 +93,17 @@ const Image = styled.img`
 //   UpdateBudgets({ categoryId: "65df9822cf64b5a9ca80ccf7", amount: 4 });
 //   DeleteBudgets({ categoryId: "65df9822cf64b5a9ca80ccf7" });
 
-type FieldType = {
-  username: string;
-  password: string;
-  remember: boolean;
-};
+// type FieldType = {
+//   username: string;
+//   password: string;
+//   remember: boolean;
+// };
 
 const Login = () => {
   const navigate = useNavigate();
   const { login } = useAuth();
 
-  const onFinish = async (values: FieldType) => {
+  const onFinish = async (values: any) => {
     console.log("Username: ", values.username);
     console.log("Password: ", values.password);
     await login(values.username, values.password);
@@ -123,7 +123,7 @@ const Login = () => {
           premium products
         </p>
 
-        <Form.Item<FieldType>
+        <Form.Item
           name="username"
           label="Username"
           rules={[
@@ -140,7 +140,7 @@ const Login = () => {
           <Input />
         </Form.Item>
 
-        <Form.Item<FieldType>
+        <Form.Item
           name="password"
           label="Password"
           rules={[
@@ -154,7 +154,7 @@ const Login = () => {
           <Input.Password />
         </Form.Item>
 
-        <Form.Item<FieldType>
+        <Form.Item
           name="remember"
           valuePropName="checked"
           rules={[
@@ -176,7 +176,7 @@ const Login = () => {
         </Form.Item>
 
         <Form.Item>
-          Don't have an account? <a href="#">Sign up here!</a>
+          Don't have an account? <Link to="/Register">Sign up here!</Link>
         </Form.Item>
       </StyledForm>
 
