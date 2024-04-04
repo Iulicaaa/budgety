@@ -1,7 +1,7 @@
 import { jwtDecode } from "jwt-decode";
 import React, { ReactNode, useContext } from "react";
 import { createContext } from "react";
-import { login as loginRequest } from "@/requests";
+import { login as loginRequest, register as registerRequest } from "@/requests";
 
 type DecodedToken = {
   username: string;
@@ -19,6 +19,7 @@ type AuthContextType = {
   token: string | null;
   user: DecodedToken | null;
   login: (username: string, password: string) => void;
+  register: (username: string, password: string, fullName: string) => void;
   logout: () => void;
 };
 
@@ -26,6 +27,7 @@ export const AuthContext = createContext<AuthContextType>({
   token: defaultToken,
   user: defaultDecoded,
   login: () => {},
+  register: () => {},
   logout: () => {},
 });
 
@@ -55,8 +57,24 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
     setUser(null);
   };
 
+  const register = async (
+    username: string,
+    password: string,
+    fullName: string,
+  ) => {
+    const response = await registerRequest({ username, password, fullName });
+
+    if (!response.token) return;
+
+    const token = response.token;
+    setToken(token);
+    localStorage.setItem("authToken", token);
+    const decoded = jwtDecode(token) as DecodedToken;
+    setUser(decoded);
+  };
+
   return (
-    <AuthContext.Provider value={{ token, user, login, logout }}>
+    <AuthContext.Provider value={{ token, user, login, register, logout }}>
       {children}
     </AuthContext.Provider>
   );

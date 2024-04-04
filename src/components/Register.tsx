@@ -16,9 +16,9 @@ import {
   BudgetList,
   UpdateBudgets,
   DeleteBudgets,
-  register,
 } from "@/requests";
 import { Link } from "react-router-dom";
+import { useAuth } from "@/contexts/AuthContext";
 
 const tailFormItemLayout = {
   wrapperCol: {
@@ -39,7 +39,7 @@ const LogoWrapper = styled.div`
   margin-top: 20px;
 `;
 
-const StyledForm = styled(Form)`
+const StyledForm = styled(Form<FieldType>)`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -64,14 +64,23 @@ const Image = styled.img`
   height: auto;
 `;
 
-const onFinish = async (values: any) => {
-  console.log("Username: ", values.username);
-  console.log("Password: ", values.password);
-  // await LogIn(values.username, values.password);
-  await register(values);
+type FieldType = {
+  username: string;
+  password: string;
+  fullName: string;
+  terms: boolean;
 };
 
-const Register: React.FC = () => {
+const Register = () => {
+  const { register } = useAuth();
+
+  const onFinish = async (values: any) => {
+    console.log("Username: ", values.username);
+    console.log("Password: ", values.password);
+    // await LogIn(values.username, values.password);
+    await register(values.username, values.password, values.fullName);
+  };
+
   return (
     <Layout>
       <StyledForm name="register" onFinish={onFinish} scrollToFirstError>
@@ -83,8 +92,8 @@ const Register: React.FC = () => {
           Please sign up to your personal account if you want to use all our
           premium products
         </p>
-        <Form.Item
-          name="FullName"
+        <Form.Item<FieldType>
+          name="fullName"
           label="Full Name"
           rules={[
             {
@@ -96,7 +105,7 @@ const Register: React.FC = () => {
           <Input />
         </Form.Item>
 
-        <Form.Item
+        <Form.Item<FieldType>
           name="username"
           label="Username"
           rules={[
@@ -113,7 +122,7 @@ const Register: React.FC = () => {
           <Input />
         </Form.Item>
 
-        <Form.Item
+        <Form.Item<FieldType>
           name="password"
           label="Password"
           rules={[
@@ -127,8 +136,8 @@ const Register: React.FC = () => {
           <Input.Password />
         </Form.Item>
 
-        <Form.Item
-          name="agreement"
+        <Form.Item<FieldType>
+          name="terms"
           valuePropName="checked"
           rules={[
             {
