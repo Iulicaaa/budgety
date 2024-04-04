@@ -43,7 +43,7 @@ const LogoWrapper = styled.div`
   margin-top: 20px;
 `;
 
-const StyledForm = styled(Form)`
+const StyledForm = styled(Form<FieldType>)`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -93,17 +93,17 @@ const Image = styled.img`
 //   UpdateBudgets({ categoryId: "65df9822cf64b5a9ca80ccf7", amount: 4 });
 //   DeleteBudgets({ categoryId: "65df9822cf64b5a9ca80ccf7" });
 
-// type FieldType = {
-//   username: string;
-//   password: string;
-//   remember: boolean;
-// };
+type FieldType = {
+  username: string;
+  password: string;
+  remember: boolean;
+};
 
 const Login = () => {
   const navigate = useNavigate();
   const { login } = useAuth();
 
-  const onFinish = async (values: any) => {
+  const onFinish = async (values: FieldType) => {
     console.log("Username: ", values.username);
     console.log("Password: ", values.password);
     await login(values.username, values.password);
@@ -123,7 +123,7 @@ const Login = () => {
           premium products
         </p>
 
-        <Form.Item
+        <Form.Item<FieldType>
           name="username"
           label="Username"
           rules={[
@@ -140,7 +140,7 @@ const Login = () => {
           <Input />
         </Form.Item>
 
-        <Form.Item
+        <Form.Item<FieldType>
           name="password"
           label="Password"
           rules={[
@@ -154,7 +154,7 @@ const Login = () => {
           <Input.Password />
         </Form.Item>
 
-        <Form.Item
+        <Form.Item<FieldType>
           name="remember"
           valuePropName="checked"
           rules={[

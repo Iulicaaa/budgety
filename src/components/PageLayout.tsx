@@ -28,7 +28,7 @@ export const PageLayout = ({
   title,
   selectedKey,
 }: PageLayoutProps) => {
-  const { user } = useAuth();
+  const { user, logout } = useAuth();
   const [collapsed, setCollapsed] = useState(false);
   const {
     token: { colorBgContainer },
@@ -80,7 +80,13 @@ export const PageLayout = ({
                 />
                 {title}
               </div>
-              <div> {user?.username}</div>
+              <div>
+                {" "}
+                {user?.username}
+                <button style={{ marginLeft: "10px" }} onClick={logout}>
+                  Sign out
+                </button>
+              </div>
             </Flex>
           </Header>
           <Content
