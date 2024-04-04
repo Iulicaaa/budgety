@@ -1,6 +1,6 @@
 import axios from "axios";
 
-type LoginRequest = {
+export type LoginRequest = {
   username: string;
   password: string;
 };
@@ -14,7 +14,7 @@ export const login = async (data: LoginRequest) => {
   return response.data;
 };
 
-type RegisterRequest = {
+export type RegisterRequest = {
   username: string;
   password: string;
   fullName: string;

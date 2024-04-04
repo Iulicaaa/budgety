@@ -106,7 +106,7 @@ const Login = () => {
   const onFinish = async (values: FieldType) => {
     console.log("Username: ", values.username);
     console.log("Password: ", values.password);
-    await login(values.username, values.password);
+    await login(values);
 
     navigate("/dashboard");
   };

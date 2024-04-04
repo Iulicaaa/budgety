@@ -78,7 +78,7 @@ const Register = () => {
     console.log("Username: ", values.username);
     console.log("Password: ", values.password);
     // await LogIn(values.username, values.password);
-    await register(values.username, values.password, values.fullName);
+    await register(values);
   };
 
   return (
